@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class JDBCUtil {
     private final  static  String RESOURCE="data.properties";
-    private static Properties properties = null;
+    private static Properties properties;
 
     static {
         try {
@@ -77,22 +77,5 @@ public class JDBCUtil {
         return url.substring(url.lastIndexOf("/")+1);
     }
 
-    //关闭
-    public static  void gracefulClose(ResultSet rs, Statement st){
-        if (rs != null){
-            try {
-                rs.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        if (st != null){
-            try {
-                st.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
 
-    }
 }

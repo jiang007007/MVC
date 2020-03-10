@@ -3,9 +3,6 @@ package com.nike.util;
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 
 public class BaseDataSourceAdapter implements DataSource {

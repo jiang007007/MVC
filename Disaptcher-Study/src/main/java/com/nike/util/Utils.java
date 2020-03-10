@@ -1,10 +1,11 @@
 package com.nike.util;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import java.io.*;
-import java.net.FileNameMap;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -114,5 +115,22 @@ public class Utils {
         }
     }
 
+    //关闭
+    public static  void gracefulClose(ResultSet rs, Statement st){
+        if (rs != null){
+            try {
+                rs.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if (st != null){
+            try {
+                st.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 
+    }
 }
