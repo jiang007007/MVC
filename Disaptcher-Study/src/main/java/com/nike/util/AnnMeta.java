@@ -1,6 +1,7 @@
 package com.nike.util;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class AnnMeta {
 
@@ -31,5 +32,14 @@ public class AnnMeta {
 
     public void setMethod(Method method) {
         this.method = method;
+    }
+
+    @Override
+    public String toString() {
+        return "AnnMeta{" +
+                "clazz=" + clazz +
+                ", parameters=" + Arrays.toString(parameters) +
+                ", method=" + method +
+                '}';
     }
 }

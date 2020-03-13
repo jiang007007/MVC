@@ -20,7 +20,7 @@ public class ActionApplication {
      * @param location
      * @return
      */
-    public static <T> T scannerController(String location) throws Exception {
+    public static Map<String,AnnMeta> scannerController(String location) throws Exception {
     loadFile(location);
 
         Set<Map.Entry<Object, Object>> entrys = PROPERTIES.entrySet();
@@ -37,25 +37,32 @@ public class ActionApplication {
                 {
                     if (file.getName().endsWith(".class")){
                         findBeanClass(value+"."+file.getName().substring(0,file.getName().lastIndexOf(".")));
+                    }else {
+                        loadBeanClass(file,value);
                     }
                 }
             }else{
                 break;
             }
         }
-        return (T) annotaionMap;
+        return annotaionMap;
     }
     private  static void findBeanClass(String clazzStr) throws ClassNotFoundException {
         Class<?> aClass = Class.forName(clazzStr);
         Controller[] clazzAnntataion = aClass.getAnnotationsByType(Controller.class);
         if (clazzAnntataion.length>0){
+            ReqestMapping[] declaredAnnotationsByType = aClass.getDeclaredAnnotationsByType(ReqestMapping.class);
+            String mapping="";
+            for (ReqestMapping es: declaredAnnotationsByType){
+                mapping = es.value();
+            }
             Method[] methods = aClass.getMethods();
             AnnMeta annMeta = new AnnMeta();
             String value=null;
             for (Method method: methods){
                 ReqestMapping[] methodAnnotationsByType = method.getAnnotationsByType(ReqestMapping.class);
                 for (ReqestMapping es:methodAnnotationsByType){
-                    value = es.value();//RequestMapping定义的路由
+                    value =mapping+ es.value();//RequestMapping定义的路由
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     annMeta.setMethod(method);
                     annMeta.setParameters(parameterTypes);
@@ -67,10 +74,14 @@ public class ActionApplication {
     }
 
     //递归从查找
-    private  static  void loadBeanClass(File  file){
+    private  static  void loadBeanClass(File  file,String value) throws ClassNotFoundException {
         File[] files = file.listFiles();
         for(File fi: files){
-
+            if (fi.getName().endsWith(".class")){
+                findBeanClass(value+"."+file.getName().substring(0,file.getName().lastIndexOf(".")));
+            }else {
+                loadBeanClass(fi,value);
+            }
         }
     }
     //读取配置文件
