@@ -51,4 +51,16 @@ public class UrpUser{
 		this.password= password;
 	}
 
+	@Override
+	public String toString() {
+		return "UrpUser{" +
+				"type=" + type +
+				", userName='" + userName + '\'' +
+				", deparment='" + deparment + '\'' +
+				", userTell=" + userTell +
+				", userId=" + userId +
+				", createTime=" + createTime +
+				", password='" + password + '\'' +
+				'}';
+	}
 }
