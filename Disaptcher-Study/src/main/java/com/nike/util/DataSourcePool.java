@@ -39,6 +39,8 @@ public class DataSourcePool extends BaseDataSourceAdapter {
               if (!ConnPool.isEmpty()){
                   return ConnPool.remove(0);
               }
+          }catch (IndexOutOfBoundsException ex){
+                //拒绝方法
           }finally {
               lock.unlock();
           }
