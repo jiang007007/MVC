@@ -4,9 +4,11 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public class AnnMeta {
-
+    //前端控制类
     private Class<?> clazz;
+    //参数类型
     private Class<?> [] parameters;
+    //方法
     private Method method;
 
 

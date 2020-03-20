@@ -33,8 +33,11 @@ public class DispatchersServlet extends HttpServlet {
                Object[] args = new Object[currentMethod.getParameterCount()];
                genarateMethodArg(currentparameters,args);
                Object invoke = currentMethod.invoke(Instance, args);
-
+                if (invoke != null){
+                    //逻辑处理
+                }
            }
+           return;
        }catch (Exception e){
            setStats(req, resp);
        }
